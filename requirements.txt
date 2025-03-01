@@ -3,3 +3,4 @@ Pillow==11.1.0
 pandas>=2.2.0
 openpyxl==3.1.2
 pytesseract
+gunicorn==21.2.0
