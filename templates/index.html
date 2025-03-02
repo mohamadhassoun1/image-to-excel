@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text</title>
+    <title>Image to Excel</title>
 </head>
 <body>
     <h1>Upload an Image</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*" required>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
         <button type="submit">Upload</button>
     </form>
+
+    {% if result %}
+    <p><a href="{{ result }}">Download Excel File</a></p>
+    {% endif %}
 </body>
 </html>
