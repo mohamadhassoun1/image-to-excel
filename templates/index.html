@@ -1,17 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image to Excel</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0d6efd;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        label:hover {
+            background: #0b5ed7;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #198754;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #157347;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .result a:hover {
+            text-decoration: underline;
+        }
+        /* Progress Bar Styles */
+        .progress-container {
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #0d6efd;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload an Image</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
-        <button type="submit">Upload</button>
-    </form>
+    <div class="container">
+        <h1>Convert Image to Excel</h1>
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+            <label for="file">Upload Image</label>
+            <input type="file" id="file" name="file" accept="image/*" required>
+            <button type="submit">Process</button>
+        </form>
 
-    {% if result %}
-    <p><a href="{{ result }}">Download Excel File</a></p>
-    {% endif %}
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        {% if result %}
+        <div class="result">
+            <p>Your file is ready! <a href="{{ result }}">Download Excel File</a></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript for Progress Bar -->
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function () {
+            // Show the progress bar
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            progressContainer.style.display = 'block';
+
+            // Simulate progress (replace this with actual server-side progress if possible)
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                }
+                width += 10; // Increment progress
+                progressBar.style.width = width + '%';
+            }, 500); // Update every 500ms
+        });
+    </script>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
